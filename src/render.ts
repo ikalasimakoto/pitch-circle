@@ -139,14 +139,15 @@ function drawCircle(
       } else {
         out.push(`<circle cx="${fmt(x)}" cy="${fmt(y)}" r="3" fill="${S.faint}"/>`);
       }
-      // Non-members are named by note only; a degree there would read as part of the set.
-      const faint = spec.display.label === "none" ? "" : spell(pc, ctx);
-      if (faint) {
-        const [lx, ly] = point(cx, cy, circleIndex(pc, top, kind), S.radius + 27);
-        out.push(
-          `<text x="${fmt(lx)}" y="${fmt(ly)}" dy="0.35em" text-anchor="middle" font-size="11" fill="${S.faint}">${esc(faint)}</text>`,
-        );
-      }
+    }
+    // Every position is named by note outside the ring: dark for members, faint
+    // for the rest. Degrees stay inside the dots, so they only mark the set.
+    if (spec.display.label !== "none") {
+      const [lx, ly] = point(cx, cy, circleIndex(pc, top, kind), S.radius + 30);
+      const member = members.has(pc);
+      out.push(
+        `<text x="${fmt(lx)}" y="${fmt(ly)}" dy="0.35em" text-anchor="middle" font-size="${member ? 12 : 11}"${member ? ' font-weight="600"' : ""} fill="${member ? S.lineColor : S.faint}">${esc(spell(pc, ctx))}</text>`,
+      );
     }
     if (opts.interactive) {
       out.push(
