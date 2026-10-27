@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pitch Circle</title>
+    <link rel="stylesheet" href="/gui/styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <h1>Pitch Circle</h1>
+        <p class="hint">Pick notes from the 12 and study them on the circle of fifths and the chromatic circle.</p>
+      </div>
+      <button id="compare-toggle" type="button" class="ghost">Compare two sets</button>
+    </header>
+
+    <div id="compare-bar" class="compare-bar" hidden></div>
+    <main id="panels" class="panels"></main>
+
+    <section class="panel library-panel" aria-label="Library">
+      <div class="panel-head"><h2>Library</h2></div>
+      <div class="lib-controls">
+        <input id="lib-search" type="search" placeholder="Filter — comma-separated terms, all must match" />
+        <label class="field small lib-sort">
+          <span>Sort</span>
+          <select id="lib-sort">
+            <option value="updated">Updated (newest)</option>
+            <option value="created">Created (newest)</option>
+            <option value="name">Name (A–Z)</option>
+          </select>
+        </label>
+      </div>
+      <div id="lib-list" class="lib-list"></div>
+      <p class="hint" id="lib-status">Saved sets are stored as JSON files in <code>library/</code>.</p>
+    </section>
+
+    <script type="module" src="/gui/main.ts"></script>
+  </body>
+</html>

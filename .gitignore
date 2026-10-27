@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.DS_Store
+
+# Saved sets are personal by default; keep the folder, ignore its contents.
+library/*.json
+
+# Personal scale presets.
+config/*.json
