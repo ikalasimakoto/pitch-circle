@@ -16,10 +16,21 @@
     </header>
 
     <div id="compare-bar" class="compare-bar" hidden></div>
+    <div id="tabs" class="tabs" role="tablist" hidden>
+      <button type="button" role="tab" data-tab="0" class="on">A</button>
+      <button type="button" role="tab" data-tab="1">B</button>
+    </div>
     <main id="panels" class="panels"></main>
 
     <section class="panel library-panel" aria-label="Library">
-      <div class="panel-head"><h2>Library</h2></div>
+      <div class="panel-head">
+        <h2>Library</h2>
+        <div class="row">
+          <button id="lib-export" type="button" class="ghost tiny">Export library (JSON)</button>
+          <button id="lib-import" type="button" class="ghost tiny">Import…</button>
+          <input id="lib-import-file" type="file" accept="application/json,.json" hidden />
+        </div>
+      </div>
       <div class="lib-controls">
         <input id="lib-search" type="search" placeholder="Filter — comma-separated terms, all must match" />
         <label class="field small lib-sort">
@@ -32,7 +43,7 @@
         </label>
       </div>
       <div id="lib-list" class="lib-list"></div>
-      <p class="hint" id="lib-status">Saved sets are stored as JSON files in <code>library/</code>.</p>
+      <p class="hint" id="lib-status"></p>
     </section>
 
     <script type="module" src="/gui/main.ts"></script>

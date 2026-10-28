@@ -16,6 +16,9 @@ import {
 } from "../src/ops.ts";
 import { renderSvg, subsetLabel } from "../src/render.ts";
 
+/** Phone-width screens get the two circles stacked. Matches styles.css. */
+export const PHONE = window.matchMedia("(max-width: 600px)");
+
 export const PALETTE = ["#d9534f", "#3a7bd5", "#2e9e5b", "#e0a100", "#8e44ad", "#16a2b8", "#e67e22", "#7f8c8d"];
 
 export interface AppContext {
@@ -117,6 +120,8 @@ export class Panel {
     const ana = this.highlightIc != null ? intervalAnalysis(this.spec.pcs).pairs[this.highlightIc] : [];
     return renderSvg(this.spec, {
       ...opts,
+      // On-screen only: exports keep the circles side by side.
+      stacked: opts.interactive && PHONE.matches,
       highlightPairs: opts.interactive ? ana : [],
       overlay:
         other && this.overlay

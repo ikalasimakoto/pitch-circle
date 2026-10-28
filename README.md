@@ -57,6 +57,25 @@ npm test        # theory and set-class tests
 - **Export**: PNG, JPEG or SVG at 1×/2×/4×, transparent or white background.
   The title and legend can be switched off.
 
+### Phones and tablets
+
+Below 900 px wide (tablet portrait and smaller), the compare view switches
+between A and B with tabs instead of stacking them. Below 600 px the two
+circles are drawn one above the other on screen; exports stay side by side.
+
+## Static build (no server)
+
+```bash
+npm run build   # writes dist/, which any static host can serve
+```
+
+The static build has no dev server, so saved sets and presets live in the
+browser's localStorage instead of `library/` and `config/`. Each browser keeps
+its own copy; **Export library (JSON)** and **Import…** move sets between
+devices (and between the static site and the Mac's `library/`). Asset paths are
+relative, so `dist/` works under a sub-path such as GitHub Pages'
+`/pitch-circle/`.
+
 ## Headless use
 
 ```ts
@@ -76,4 +95,5 @@ The spec shape is in `src/types.ts`.
 - `src/chords.ts` — chord names and subset enumeration
 - `src/ops.ts` — whole-spec operations (transpose, mode switch, name matching)
 - `src/render.ts` — SVG rendering
-- `gui/` — the editor; `vite.config.ts` — library and preset APIs
+- `src/presets.ts` — default scale presets
+- `gui/` — the editor (`gui/api.ts` picks file or browser storage); `vite.config.ts` — library and preset APIs

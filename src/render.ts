@@ -15,6 +15,8 @@ export interface RenderOptions {
   overlay?: { pcs: number[]; color?: string; label?: string } | null;
   /** Pairs of pitch classes to draw as highlighted chords of the circle. */
   highlightPairs?: [number, number][];
+  /** Put the chromatic circle below the circle of fifths (for phone screens). */
+  stacked?: boolean;
 }
 
 const S = {
@@ -173,11 +175,14 @@ export function renderSvg(spec: PitchSet, opts: RenderOptions = {}): string {
       ]
     : [];
 
+  const stacked = !!opts.stacked;
+  const cols = stacked ? 1 : 2;
   const titleH = title ? S.titleSize + 16 : 0;
-  const width = S.margin * 2 + S.box * 2 + S.gap;
+  const width = S.margin * 2 + S.box * cols + S.gap * (cols - 1);
   const circlesTop = S.margin + titleH;
-  const legendTop = circlesTop + S.box + 24;
-  const legendRows = Math.ceil(legend.length / 2);
+  const circlesH = stacked ? S.box * 2 + S.gap : S.box;
+  const legendTop = circlesTop + circlesH + 24;
+  const legendRows = Math.ceil(legend.length / cols);
   const height = legendTop + (legendRows ? legendRows * 22 + 6 : 0) + S.margin - 10;
 
   const out: string[] = [];
@@ -191,12 +196,15 @@ export function renderSvg(spec: PitchSet, opts: RenderOptions = {}): string {
     );
   }
   const cy = circlesTop + S.box / 2 - 8;
+  const second = stacked
+    ? { x: S.margin + S.box / 2, y: cy + S.box + S.gap }
+    : { x: S.margin + S.box * 1.5 + S.gap, y: cy };
   out.push(`<g data-circle="fifths">${drawCircle(spec, "fifths", S.margin + S.box / 2, cy, opts)}</g>`);
-  out.push(`<g data-circle="chromatic">${drawCircle(spec, "chromatic", S.margin + S.box * 1.5 + S.gap, cy, opts)}</g>`);
+  out.push(`<g data-circle="chromatic">${drawCircle(spec, "chromatic", second.x, second.y, opts)}</g>`);
 
   legend.forEach((item, i) => {
-    const x = S.margin + (i % 2) * (S.box + S.gap);
-    const y = legendTop + Math.floor(i / 2) * 22;
+    const x = S.margin + (i % cols) * (S.box + S.gap);
+    const y = legendTop + Math.floor(i / cols) * 22;
     out.push(
       `<line x1="${x}" y1="${y}" x2="${x + 22}" y2="${y}" stroke="${esc(item.color)}" stroke-width="3"${item.dashed ? ' stroke-dasharray="6 4"' : ""}/>`,
       `<text x="${x + 30}" y="${y}" dy="0.35em" font-size="12" fill="${S.lineColor}">${esc(item.text)}</text>`,
