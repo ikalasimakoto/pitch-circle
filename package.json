@@ -4,6 +4,8 @@
   "private": true,
   "type": "module",
   "description": "Pitch-class set study tool: draws a set on the circle of fifths and the chromatic circle, and analyses degrees, intervals, subsets, chords, modes, symmetry and set class. A GUI-independent core renders a JSON spec to SVG, so it can also run headlessly (e.g. by an AI).",
+  "license": "MIT",
+  "author": "ikalasimakoto",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

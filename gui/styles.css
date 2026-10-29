@@ -248,3 +248,7 @@ table.modes, table.ics { width: 100%; }
   .srow .sforte { display: none; }
   .spell-grid, .dn-grid { grid-template-columns: repeat(4, 1fr); }
 }
+
+.app-footer { padding: 8px 24px 32px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.app-footer p { margin: 4px 0; max-width: 900px; }
+.app-footer a { color: inherit; }
