@@ -6,7 +6,7 @@ intervals, subsets and chords, modes, symmetry and set class. Two sets can be
 compared side by side. Built in the same way as `fretboard-diagram`: a pure
 JSON → SVG core with a local web editor on top, so it also runs headlessly.
 
-Live (static version): https://macotoikarashi.github.io/pitch-circle/ — rebuilt
+Live (static version): https://ikalasimakoto.github.io/pitch-circle/ — rebuilt
 and published by GitHub Actions on every push to `main`.
 
 ## Getting started
